@@ -1,5 +1,5 @@
 <?php
-require_once 'assets/php/config.php'
+
 require_once 'assets/php/functions.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
@@ -18,6 +18,9 @@ if (isset($_GET['signup'])) {
     showPage('header', $vars);
     showPage('login');
 } else {
-    showPage('footer');
+    showPage('header', ['page_title' => 'Pictogram - login']);
+    showPage('login');
 }
+
+showPage('footer');
 ?>
