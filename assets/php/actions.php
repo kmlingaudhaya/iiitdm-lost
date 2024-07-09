@@ -1,6 +1,6 @@
 <?php
-session_start(); // Ensure session is started?
 
+require_once 'config.php';
 require_once 'functions.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

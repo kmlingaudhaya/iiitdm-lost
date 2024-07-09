@@ -1,6 +1,6 @@
 <?php
 
-
+session_start(); // Ensure session is started?
 // mysqli database connection
 const DB_NAME = 'pictogram';
 const DB_HOST = 'localhost';

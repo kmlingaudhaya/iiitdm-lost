@@ -1,6 +1,5 @@
 <?php
-session_start(); // Ensure session is started
-
+require_once 'assets/php/config.php'
 require_once 'assets/php/functions.php';
 
 if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
