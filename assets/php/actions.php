@@ -36,10 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($form_type == 'login') {
         // Login logic
         $username_email = $_POST['username_email'];
+        $_SESSION['username'] = $username_email; // creating a session and storing the log in detail. so that i can use this in index.php to retrieve ac_status from the database
         $password = $_POST['password'];
 
         if (empty($username_email) || empty($password)) {
-            header("location:../../?login&message=Please fill in all the fields");
+            $_SESSION['unfilled_error'] = "Please fill in all the fields";
+            header("location:../../?login");
             exit;
         } else {
             if (usernameOrEmailExists($username_email)) {
@@ -51,14 +53,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("location:../../");
                     exit;
                 } else {
-                    header("location:../../?login&message=Invalid password");
+                    //create a session variable and store the message
+                    $_SESSION['password_error'] = "Incorrect password. Please try again.";
+                    header("location:../../?login");
                     exit;
                 }
             } else {
-                header("location:../../?login&message=Username or email does not exist");
+                $_SESSION['username_email_error'] = "Incorrect email or username. Please try again.";
+                header("location:../../?login");
                 exit;
             }
-        }
+            }
     }
 }
 ?>
