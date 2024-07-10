@@ -9,7 +9,7 @@ function showPage($page, $data = []) {
     include("assets/pages/$page.php");
 }
 
-// Function to check if the username is unique
+// Function to check if the username is unique for sign up
 function isUniqueUsername($username) {
     global $db;
     $query = "SELECT * FROM users WHERE username = ?";
@@ -20,7 +20,7 @@ function isUniqueUsername($username) {
     return mysqli_num_rows($result) == 0;
 }
 
-// Function to check if the email is unique
+// Function to check if the email is unique for sign up
 function isUniqueEmail($email) {
     global $db;
     $query = "SELECT * FROM users WHERE email = ?";
@@ -30,8 +30,8 @@ function isUniqueEmail($email) {
     $result = mysqli_stmt_get_result($stmt);
     return mysqli_num_rows($result) == 0;
 }
-
-// Function to insert a new user into the database
+// if the username and email is found to be unique we go ahead and use 
+// function to insert a new user into the database
 function insertNewUser($first_name, $last_name, $email, $gender, $username, $password) {
     global $db;
     $query = "INSERT INTO users (first_name, last_name, email, gender, username, password) VALUES (?, ?, ?, ?, ?, ?)";
@@ -40,7 +40,7 @@ function insertNewUser($first_name, $last_name, $email, $gender, $username, $pas
     return mysqli_stmt_execute($stmt);
 }
 
-// Function to check if a username or email exists
+// Function to check if a username or email exists for log in management
 function usernameOrEmailExists($username_email) {
     global $db;
     $query = "SELECT * FROM users WHERE username = ? OR email = ?";
