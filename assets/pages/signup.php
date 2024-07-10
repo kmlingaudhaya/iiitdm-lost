@@ -53,6 +53,7 @@
                     <input required type="password" name="password" class="form-control rounded-0" id="floatingPassword" placeholder="Password" autocomplete="off">
                     <label for="floatingPassword">password</label>
                 </div>
+                
 
                 <?php if(isset($_GET['message'])) {echo "<span style='color: red;'>".$_GET['message']."</span>";}?>
                 <div class="mt-3 d-flex justify-content-between align-items-center">
