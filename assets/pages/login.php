@@ -25,6 +25,7 @@
                     <input type="password" name="password" class="form-control rounded-0" id="floatingPassword" placeholder="Password">
                     <label for="floatingPassword">password</label>
                 </div>
+                
                 <!-- Using the session variable created in the actions.php to show the error in password if that session variable is triggered -->
                 <?php if(isset($_SESSION['password_error'])): ?>
                     <div class="alert alert-danger" role="alert">
