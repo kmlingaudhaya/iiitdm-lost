@@ -9,6 +9,16 @@ function showPage($page, $data = []) {
     include("assets/pages/$page.php");
 }
 
+// FUNCTION FOR SHOW PREV FORM DATA
+
+function getPreviousFormData($field) {
+    if (isset($_SESSION['form_data'][$field])) {
+        return $_SESSION['form_data'][$field];
+    } else {
+        return '';
+    }
+}
+
 // Function to check if the username is unique for sign up
 function isUniqueUsername($username) {
     global $db;
@@ -67,5 +77,16 @@ function getUserDataByUsernameOrEmail($username_email) {
     return $user_data;
 }
 
+
+function updateAccountStatus($identifier, $status) {
+    global $db;
+    $query = "UPDATE users SET ac_status = ? WHERE username = ? OR email = ?";
+    $stmt = mysqli_prepare($db, $query);
+    if (!$stmt) {
+        throw new Exception("Failed to prepare query: " . mysqli_error($db));
+    }
+    mysqli_stmt_bind_param($stmt, 'sss', $status, $identifier, $identifier);
+    mysqli_stmt_execute($stmt);
+}
 
 ?>
