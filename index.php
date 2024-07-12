@@ -7,20 +7,23 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     $user_data = getUserDataByUsernameOrEmail($_SESSION['username']);
     if ($user_data['ac_status'] == 0) {
         // Not verified, redirect to emailVerify.php
-        header("location: emailVerify.php");
-        exit;
+        $vars = ['page_title' => 'Pictogram - verify'];
+        showPage('header', $vars);
+        showPage('verify_email');
+        
     } elseif ($user_data['ac_status'] == 1) {
-        // Verified, redirect to wall.php
-        header("location: wall.php");
-        exit;
+        $vars = ['page_title' => 'Pictogram - Home'];
+        showPage('header', $vars);
+        showPage('wall');
+        
     } elseif ($user_data['ac_status'] == 2) {
         // Blocked, redirect to block.php
-        header("location: block.php");
-        exit;
+        header("location: blocked.php");
+        
     }
 }
 
-if (isset($_GET['signup'])) {
+else    if (isset($_GET['signup'])) {
     $vars = ['page_title' => 'Pictogram - signUp'];
     showPage('header', $vars);
     showPage('signup');
@@ -29,7 +32,8 @@ if (isset($_GET['signup'])) {
     showPage('header', $vars);
     showPage('login');
 } else {
-    showPage('header', ['page_title' => 'Pictogram - login']);
+    $vars = ['page_title' => 'Pictogram - login'];
+    showPage('header', $vars);
     showPage('login');
 }
 
