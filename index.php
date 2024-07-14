@@ -18,7 +18,9 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         
     } elseif ($user_data['ac_status'] == 2) {
         // Blocked, redirect to block.php
-        header("location: blocked.php");
+        $vars = ['page_title' => 'Pictogram - blocked'];
+        showPage('header', $vars);
+        showPage('blocked');
         
     }
 }
