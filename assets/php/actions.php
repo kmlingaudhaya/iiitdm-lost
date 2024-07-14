@@ -6,6 +6,7 @@ require_once 'PHPMailer/send_code.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $form_type = $_POST['form_type']; 
+    $action = $_POST['action'];
 
     if ($form_type == 'signup') {
         // Signup logic
@@ -81,10 +82,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
             }
             }
-    } elseif ($form_type == 'verify_email') {
+    } elseif ($action == 'verify') {
+        
         // Verify email logic
         $code = $_POST['code'];
-        $user_email = $_SESSION['username']; // Get the user's email from the session
+        $user_email_or_username = $_SESSION['username']; // Get the user's email or username  from the session
         $generated_code = $_SESSION['generated_code']; // Get the generated code from the session
 
         if (empty($code)) {
@@ -94,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             if ($code == $generated_code) {
                 // Update the account status to 1 (verified)
-                updateAccountStatus($user_email, 1);
+                updateAccountStatus($user_email_or_username, 1);
                 $_SESSION['verified'] = true;
                 header("location:../../");
                 exit;
@@ -104,6 +106,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
             }
         }
+        
+    } else if ($action == 'resend') {
+        // Resend code logic
+        $user_email_or_username = $_SESSION['username']; // Get the user's email from the session
+        $code = rand(100000, 999999);
+        $_SESSION['generated_code'] = $code;
+        sendVerificationCode($user_email_or_username, $code); // Use the user's email to send the verification code
+        $_SESSION['resend_success'] = "Verification code has been sent to your email.";
+        header("location:../../?verify_email");
+        exit;
+
     }
 } 
 ?>
