@@ -29,11 +29,20 @@
                     </div>
                     <?php unset( $_SESSION['wrong_code_error']); // Don't forget to unset the session variable ?>
                 <?php endif; ?>
+
+                <?php if(isset( $_SESSION['resend_success'])): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?php echo  $_SESSION['resend_success']; ?>
+                    </div>
+                    <?php unset( $_SESSION['resend_success']); // Don't forget to unset the session variable ?>
+                <?php endif; ?>
+
+
                 
                 <div class="mt-3 d-flex justify-content-between align-items-center">
-                    <input type="hidden" name="form_type" value="verify_email">
-                    <button class="btn btn-primary" type="submit">Resend Code</button>
-                    <button class="btn btn-primary" type="submit">Verify Email</button>
+                    <!-- <input type="hidden" name="form_type" value="verify_email"> -->
+                    <button class="btn btn-primary" type="submit" name="action" value="resend">Resend Code</button>
+                    <button class="btn btn-primary" type="submit" name="action" value="verify">Verify Email</button>
 
 
 
